@@ -1,0 +1,36 @@
+# Create a data frame with the provided data
+data <- data.frame(
+  Month = c("January", "February", "March", "April", "May"),
+  Sales = c(15000, 18000, 22000, 20000, 23000)
+)
+
+# Convert Month column to factor with correct order
+data$Month <- factor(data$Month, levels = c("January", "February", "March", "April", "May"))
+
+# Plotting the scatter plot
+plot(data$Month, data$Sales, 
+     xlab = "Month", 
+     ylab = "Sales (in $)",
+     main = "Time Series Analysis - Sales",
+     pch = 16, # Use solid circles as points
+     col = "blue", # Color of points
+     ylim = c(14000, 24000), # Setting y-axis limits for better visualization
+     xlim = c(0, 6), # Setting x-axis limits to prevent clipping of labels
+     axes = FALSE) # Do not draw axes
+
+# Add axes
+axis(1, at = 1:5, labels = data$Month)
+axis(2)
+
+# Add grid lines
+grid()
+
+# Add a legend
+legend("topright", legend = "Sales", col = "blue", pch = 16)
+
+# Adding a trend line
+abline(lm(Sales ~ as.numeric(Month), data = data), col = "red")
+
+# Adding labels to data points
+text(as.numeric(data$Month), data$Sales, labels = data$Sales, pos = 3, col = "black")
+
