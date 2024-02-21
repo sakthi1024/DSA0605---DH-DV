@@ -1,0 +1,23 @@
+# Create a data frame with the provided data
+data <- data.frame(
+  Month = c("January", "February", "March", "April", "May"),
+  Sales = c(15000, 18000, 22000, 20000, 23000)
+)
+
+# Convert Month column to factor with correct order
+data$Month <- factor(data$Month, levels = c("January", "February", "March", "April", "May"))
+
+# Plotting the line graph
+plot(data$Month, data$Sales, 
+     type = "o", # "o" for line with points
+     col = "blue", # Color of line and points
+     xlab = "Month", 
+     ylab = "Sales (in $)",
+     main = "Time Series Analysis - Sales")
+
+# Adding a trend line
+lines(data$Month, data$Sales, col = "blue", type = "o")
+
+# Adding labels to data points
+text(data$Month, data$Sales, labels = data$Sales, pos = 3, col = "black")
+
