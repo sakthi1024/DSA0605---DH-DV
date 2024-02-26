@@ -1,0 +1,74 @@
+1.) DATE AND TOTAL SALES:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('/content/dh dv data.csv', encoding='latin-1')
+df['Order_Date'] = pd.to_datetime(df['Order_Date'])
+
+sales_over_time = df.groupby('Order_Date')['Sales'].sum()
+
+plt.figure(figsize=(10,6))
+plt.plot(sales_over_time, marker='o', linestyle='-')
+plt.title('Sales Over Time')
+plt.xlabel('Date')
+plt.ylabel('Total Sales')
+plt.grid(True)
+plt.show()
+
+2.) REGION AND SHIP MODE:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv("/content/dh dv data.csv", encoding='latin-1')
+
+region_ship_mode_counts = df.groupby(['Region', 'Ship_Mode']).size().unstack(fill_value=0)
+
+plt.figure(figsize=(10, 6))
+region_ship_mode_counts.plot(kind='bar', stacked=False)
+plt.title('Orders by Region and Ship Mode')
+plt.xlabel('Region')
+plt.ylabel('Number of Orders')
+plt.xticks(rotation=45)
+plt.legend(title='Ship Mode')
+plt.show()
+
+3.) SALES BY COUNTRY AND CITY:
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df = pd.read_csv('/content/dh dv data.csv', encoding='latin-1')
+
+top_cities = df.groupby('City')['Sales'].sum().sort_values(ascending=False).head(10).index
+df_filtered = df[df['City'].isin(top_cities)]
+
+plt.figure(figsize=(9, 6))
+sns.scatterplot(data=df_filtered, x='Category', y='Sales', hue='City', palette='Set2', s=100)
+plt.title('Sales by Category and City')
+plt.xlabel('Category')
+plt.ylabel('Sales')
+plt.xticks(rotation=45)
+plt.legend(title='City')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+4.) SALES AND SUB CATEGORY:
+import pandas as pd
+import pandas as pd
+
+df = pd.read_csv('/content/dh dv data.csv', encoding='latin-1')
+
+subcategory_sales = df.groupby('Sub_Category')['Sales'].sum()
+
+plt.figure(figsize=(10, 6))
+plt.pie(subcategory_sales, startangle=140)
+plt.title('Sales Distribution by Subcategory')
+plt.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+plt.legend(loc='upper left', labels=['%s, %1.1f%%' % (label, subcategory_sales[i] / subcategory_sales.sum() * 100) for i, label in enumerate(subcategory_sales.index)])
+
+plt.show()
