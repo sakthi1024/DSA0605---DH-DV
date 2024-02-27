@@ -1,0 +1,76 @@
+print("INVENTORY CONTROL MANAGEMENT")
+class Product:
+    def _init_(self, name, price, quantity):
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+class Inventory:
+    def _init_(self):
+        self.products = []
+    def add_product(self, product):
+        self.products.append(product)
+    def remove_product(self, product_name):
+        for product in self.products:
+            if product.name == product_name:
+                self.products.remove(product)
+                break
+    def display_inventory(self):
+        print("Inventory:")
+        for product in self.products:
+            print(f"{product.name} - Price: {product.price}, Quantity: {product.quantity}")
+    def search_product(self, product_name):
+        for product in self.products:
+            if product.name == product_name:
+                return product
+        return None
+def main():
+    inventory = Inventory()
+    # Adding some initial products
+    product1 = Product("product 1", 10.0, 50)
+    product2 = Product("product 2", 15.0, 30)
+    inventory.add_product(product1)
+    inventory.add_product(product2)
+    while True:
+        print("\nMenu:")
+        print("1. Add Product")
+
+        print("2. Remove Product")
+        print("3. Display Inventory")
+        print("4. Search Product")
+        print("5. Quit")
+        choice = input("Enter your choice: ")
+        if choice == '1':
+            name = input("Enter product name: ")
+            price = float(input("Enter product price: "))
+            quantity = int(input("Enter product quantity: "))
+            product = Product(name, price, quantity)
+            inventory.add_product(product)
+            print(f"{name} added to inventory.")
+        elif choice == '2':
+            name = input("Enter product name to remove: ")
+            inventory.remove_product(name)
+            print(f"{name} removed from inventory.")
+        elif choice == '3':
+            inventory.display_inventory()
+        elif choice == '4':
+            name = input("Enter product name to search: ")
+            product = inventory.search_product(name)
+            if product:
+                print(f"{product.name} - Price: {product.price}, Quantity: {product.quantity}")
+            else:
+                print(f"{name} not found in inventory.")
+        elif choice == '5':
+            break
+        else:
+            print("Invalid choice. Please try again.")
+if _name_ == "_main_":
+    main()
+import matplotlib.pyplot as plt
+# Example Inputs
+metrics = ['Inventory Turnover Rate', 'Stockout Rate']
+values = [4.0, 0.10] 
+plt.bar(metrics, values, color=['blue', 'green'])
+plt.xlabel('Metrics')
+plt.ylabel('Values')
+plt.title('Inventory Metrics')
+plt.show()
